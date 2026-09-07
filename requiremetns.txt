@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+httpx
+sqlalchemy>=1.4
+aiosqlite
+pydantic

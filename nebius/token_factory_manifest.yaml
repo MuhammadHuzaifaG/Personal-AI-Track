@@ -1,0 +1,34 @@
+# Example Nebius Token Factory / Serverless manifest (template)
+# NOTE: Nebius's exact manifest schema may differ; use this as a template and adapt to
+# the Nebius Console or CLI manifest schema you use for Serverless Endpoints or Token Factory.
+# Replace placeholders and secret names with real values.
+name: nebius-personal-ai
+runtime: container
+image: "<REGISTRY>/<IMAGE_NAME>:<TAG>"
+env:
+  - name: NEBIUS_ENDPOINT
+    valueFrom:
+      secret: NEBIUS_ENDPOINT
+  - name: NEBIUS_API_KEY
+    valueFrom:
+      secret: NEBIUS_API_KEY
+  - name: DATABASE_URL
+    valueFrom:
+      secret: DATABASE_URL
+  - name: ALLOWED_ORIGINS
+    value: "https://your.production.domain"
+resources:
+  cpu: 1
+  memory: 4096Mi
+  # gpu: 0  # set >0 if you need GPUs; Nebius may schedule GPU nodes when requested
+http:
+  port: 8080
+routes:
+  - path: /api/v1/query
+    method: POST
+  - path: /api/v1/stream_query
+    method: POST
+secrets:
+  - NEBIUS_API_KEY
+  - DATABASE_URL
+  - NEBIUS_ENDPOINT

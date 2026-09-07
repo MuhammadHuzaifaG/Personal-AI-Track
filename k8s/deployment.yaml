@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nebius-personal-ai
+  labels:
+    app: nebius-personal-ai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nebius-personal-ai
+  template:
+    metadata:
+      labels:
+        app: nebius-personal-ai
+    spec:
+      containers:
+        - name: web
+          image: "<REGISTRY>/<IMAGE_NAME>:<TAG>" # replace with your image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: NEBIUS_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: nebius-secrets
+                  key: NEBIUS_ENDPOINT
+            - name: NEBIUS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nebius-secrets
+                  key: NEBIUS_API_KEY
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: DATABASE_URL
+            - name: ALLOWED_ORIGINS
+              value: "https://your.production.domain"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+      # If you need GPUs for co-located inference (optional), uncomment and adapt:
+      # nodeSelector:
+      #   cloud.google.com/gke-accelerator: nvidia-tesla-t4
+      # tolerations:
+      #   - key: "nvidia.com/gpu"
+      #     operator: "Exists"

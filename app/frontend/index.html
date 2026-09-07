@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nebius Personal AI — Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Nebius Personal AI — Demo</h1>
+
+    <form id="query-form" class="form" autocomplete="off">
+      <label>
+        User ID
+        <input id="user-id" name="user_id" type="text" value="demo-user" required />
+      </label>
+
+      <label>
+        Model hint
+        <select id="model-hint" name="model_hint">
+          <option value="">super (default)</option>
+          <option value="ultra">nemotron-3-ultra</option>
+          <option value="super">nemotron-super</option>
+          <option value="nano">nemotron-nano (fast)</option>
+        </select>
+      </label>
+
+      <label>
+        Use memory
+        <input id="use-memory" name="use_memory" type="checkbox" checked />
+      </label>
+
+      <label>
+        Prompt
+        <textarea id="prompt" name="prompt" rows="4" placeholder="Ask me anything..." required></textarea>
+      </label>
+
+      <div class="actions">
+        <button id="send" type="submit">Send</button>
+        <button id="clear" type="button">Clear</button>
+      </div>
+    </form>
+
+    <section aria-live="polite" class="response">
+      <h2>Assistant reply</h2>
+      <pre id="reply" class="reply" role="region"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
