@@ -54,7 +54,7 @@ Install locally
 Run the server locally (two options)
 -----------------------------------
 Option A — quick local (no Docker)
-- Ensure .env is set as above (DATABASE_URL defaults to a local sqlite file).
+- Ensure .env is set 
 - Start:
   uvicorn app.main:app --host 0.0.0.0 --port 8080
 - Open the demo UI at:
@@ -78,54 +78,4 @@ Notes on tests
 - tests/test_api.py starts an in-memory FastAPI test client and monkeypatches the model client so tests do not call external endpoints.
 - The smoke-check in startup is non-fatal for local runs; tests rely on monkeypatching to avoid network calls.
 
-Demo script for judges (what to record in a 2–3 minute video)
---------------------------------------------------------------
-1. Show the README and architecture briefly (20s).
-2. Start the server (uvicorn or docker-compose) and show logs initializing DB and model client smoke check (30s).
-3. Open the UI at /static/index.html, type a prompt such as:
-   "Plan a 30-minute focused study schedule to learn the basics of diffusion models."
-   - Choose model hint "super" for normal, "ultra" for deep reasoning.
-4. Show the assistant streaming the response in real time.
-5. Show that responses are saved to memory (issue a follow-up question that references earlier response; the assistant uses memory).
-6. Show the Nebius manifest and explain how it uses Nebius Token Factory and NVIDIA Nemotron models (brief).
-7. Close with the judging criteria mapping below.
-
-One-line run/setup guide
-------------------------
-Set NEBIUS_ENDPOINT and NEBIUS_API_KEY environment variables (or use .env), then:
-uvicorn app.main:app --host 0.0.0.0 --port 8080
-
-Mapping to judging criteria (explicit)
---------------------------------------
-- Technological Implementation:
-  - Uses Nebius Model endpoints through a resilient HTTP + streaming adapter.
-  - Async IO, streaming, and persistent memory are implemented; production-ready deployment artifacts are included.
-- Design:
-  - Complete product experience: backend, streaming UI, memory, and deployment manifests.
-  - UX is responsive via streaming; UI is simple, accessible, and deployable as static files.
-- Potential Impact:
-  - Personal assistant retains private data on user-owned infrastructure, enabling private workflows for professionals, students, and teams.
-  - Can be extended to automate tasks or integrate with personal tools (calendar, email) while keeping data under user control.
-- Quality of the Idea:
-  - Non-obvious integration: streaming outputs, memory-first prompt composition, and model routing (nano/super/ultra) to optimize latency and cost.
-
-Production checklist (before public deploy)
-------------------------------------------
-- Use managed Postgres in production (set DATABASE_URL to asyncpg Postgres).
-- Store secrets (NEBIUS_API_KEY, DB URL) in a secrets manager — do not commit.
-- Configure ALLOWED_ORIGINS to your UI domain.
-- Add authentication and rate limiting.
-- Swap in Redis for caching if high throughput and multiple instances.
-- Add observability (metrics and tracing).
-
-License and credits
--------------------
-- Please include an appropriate open-source license when ready for public release.
-- This project demonstrates use of NVIDIA Nemotron models via Nebius tokens as required by the hackathon.
-
-If you’d like I will:
-- Add a GitHub Actions job to run pytest in CI.
-- Add an end-to-end test for the streaming endpoint.
-- Replace the simple in-memory cache with Redis and provide config.
-
-Thank you — tell me which CI or extra tests you want next and I’ll add them.
+##Thank you 
