@@ -8,6 +8,9 @@ Why this project (short, human):
 - I chose the Personal AI Track because it showcases ownership of private data, persistent memory, and practical utility: an assistant that keeps context across sessions, runs on open infrastructure, and uses NVIDIA open-source models.
 - The system is engineered for judges: it uses Nemotron models via Nebius, provides a responsive streaming UI, and includes production-ready deployment artifacts.
 
+<img width="911" height="599" alt="Capture" src="https://github.com/user-attachments/assets/cd485aeb-90cc-447f-aca1-64d6252f7c77" />
+
+
 What’s included (high level)
 - Backend: FastAPI app (app/main.py) — query and streaming endpoints.
 - Model adapter: app/model_client.py — resilient HTTP client with streaming support.
